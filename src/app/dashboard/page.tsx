@@ -17,14 +17,12 @@ export default function Dashboard() {
   const supabase = createClient();
 
   const [hasAccess, setHasAccess] = useState<boolean | null>(null);
-  const [imageUrl, setImageUrl] = useState(
-    "https://i.scdn.co/image/ab67616d0000b273b170840d6fdbc754ba304058"
-  );
-  const [redirectUrl, setRedirectUrl] = useState(
-    "https://open.spotify.com/album/1DFixLWuPkv3KT3TnV35m3"
-  );
-  const [songTitle, setSongTitle] = useState("Ghost Town");
-  const [artistName, setArtistName] = useState("As It Is");
+  const [imageUrl, setImageUrl] = useState("/placeholder.png");
+  const [redirectUrl, setRedirectUrl] = useState("");
+  const [songTitle, setSongTitle] = useState("");
+  const [artistName, setArtistName] = useState("");
+  const [songUser, setSongUser] = useState("unknown");
+
   const router = useRouter();
 
   useEffect(() => {
@@ -46,13 +44,14 @@ export default function Dashboard() {
       if (error) {
         console.error("Error fetching songs:", error);
       } else {
-        console.log("Fetched songs:", songs);
+        //console.log("Fetched songs:", songs);
         const latestSong = songs?.[0];
         if (latestSong) {
           setImageUrl(latestSong.image);
           setRedirectUrl(latestSong.spotify_url);
           setSongTitle(latestSong.track);
           setArtistName(latestSong.artist);
+          setSongUser(latestSong.user);
         }
       }
     }
@@ -78,7 +77,7 @@ export default function Dashboard() {
           </SignedIn>
         </div>
 
-        <div className="flex flex-col items-center gap-8 text-center">
+        <div className="flex flex-col items-center gap-4 text-center">
           {/* GSOTW Title */}
           <Image
             src="/GSOTW.svg"
@@ -107,10 +106,13 @@ export default function Dashboard() {
             <p className="text-gray-600 dark:text-gray-400 mb-0">
               {artistName}
             </p>
+            <p className="text-gray-600 dark:text-gray-400 mb-0">
+              Tillagt av {songUser}
+            </p>
           </div>
 
           {/* Two URL Links */}
-          <div className="flex flex-row gap-4 items-center">
+          <div className="flex flex-row gap-4 items-center mb-0">
             <Link
               href="/add"
               className="text-black dark:text-black hover:text-white text-lg transition-colors bg-zinc-300 hover:bg-green-700 font-medium py-2 px-4 rounded-lg"
@@ -122,6 +124,14 @@ export default function Dashboard() {
               className="text-black dark:text-black hover:text-white text-lg transition-colors bg-zinc-300 hover:bg-green-700 font-medium py-2 px-4 rounded-lg"
             >
               Arkiv
+            </Link>
+          </div>
+          <div className="flex flex-row gap-4 items-center mt-0">
+            <Link
+              href="/next"
+              className="text-black dark:text-black hover:text-white text-lg transition-colors bg-zinc-300 hover:bg-green-700 font-medium py-2 px-4 rounded-lg w-full"
+            >
+              Nästa veckas urval
             </Link>
           </div>
         </div>

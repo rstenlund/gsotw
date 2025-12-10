@@ -17,11 +17,13 @@ export default function Add() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [searchResults, setSearchResults] = useState<any>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
+    setSuccess(null);
     setSearchResults(null);
 
     const track_s = track.trim();
@@ -83,7 +85,17 @@ export default function Add() {
         }
       } else {
         console.log("Successfully added song:", data);
-        // Optionally show success message or redirect
+        setSuccess(
+          `✓ "${track_name}" av ${artist_name} har lagts till i utlottningen!`
+        );
+        setSearchResults(null);
+        setTrack("");
+        setArtist("");
+
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setSuccess(null);
+        }, 5000);
       }
     } catch (error) {
       console.error("Error adding song to database:", error);
@@ -144,7 +156,6 @@ export default function Add() {
                   onChange={(e) => setArtist(e.target.value)}
                   placeholder="Ange artist"
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  required
                   disabled={isLoading}
                   autoComplete="off"
                 />
@@ -153,6 +164,12 @@ export default function Add() {
               {error && (
                 <div className="text-red-600 dark:text-red-400 text-sm text-center">
                   {error}
+                </div>
+              )}
+
+              {success && (
+                <div className="text-green-600 dark:text-green-400 text-sm text-center font-medium bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-200 dark:border-green-800">
+                  {success}
                 </div>
               )}
 
@@ -190,9 +207,6 @@ export default function Add() {
                         </h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
                           {item.artists.map((a: any) => a.name).join(", ")}
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                          {item.album.name}
                         </p>
                       </div>
                       <button
