@@ -89,7 +89,7 @@ export default function Dashboard() {
           />
 
           {/* Centered Image */}
-          <div className="mb-8">
+          <div className="mb-2">
             <a href={redirectUrl} target="_blank" rel="noopener noreferrer">
               <Image
                 src={imageUrl}
@@ -112,7 +112,7 @@ export default function Dashboard() {
           </div>
 
           {/* Two URL Links */}
-          <div className="flex flex-row gap-4 items-center mb-0">
+          <div className="flex flex-row gap-4 items-center mb-0 mt-0">
             <Link
               href="/add"
               className="text-black dark:text-black hover:text-white text-lg transition-colors bg-zinc-300 hover:bg-green-700 font-medium py-2 px-4 rounded-lg"
