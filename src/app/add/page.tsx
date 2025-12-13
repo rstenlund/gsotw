@@ -105,116 +105,129 @@ export default function Add() {
 
   return (
     <AccessGate>
-      <div className="flex min-h-screen items-center justify-center font-sans bg-white dark:bg-black">
-        <main className="flex flex-col items-center justify-center min-h-screen w-full max-w-3xl px-16 bg-white dark:bg-black">
+      <div className="flex min-h-screen items-center justify-center font-sans gradient-bg dark:gradient-bg-dark relative overflow-hidden">
+        {/* Animated background orbs */}
+        <div className="absolute top-20 right-10 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-20 left-10 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-300"></div>
+
+        {/* Fixed UserButton in top right */}
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-4 animate-fade-in">
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
+
+        <main className="flex flex-col items-center justify-center min-h-screen w-full max-w-3xl px-16 relative z-10">
           <div className="flex flex-col items-center gap-8 text-center">
-            <SignedIn>
-              <div className="absolute top-4 right-4">
-                <UserButton />
-              </div>
-            </SignedIn>
-            <Link href="/">
+            <Link href="/" className="animate-scale-in">
               <Image
                 src="/GSOTW.svg"
                 alt="GSOTW Logo"
                 width={300}
                 height={300}
-                className=" mt-10 select-none"
+                className="mt-10 select-none drop-shadow-2xl hover:scale-105 transition-transform"
                 priority
               />
             </Link>
-            <h1 className="text-2xl font-regular text-gray-900 dark:text-white mb-2">
+            <h1 className="text-3xl font-bold gradient-text mb-2 animate-fade-in-up delay-100">
               Lägg till låt i utlottningen
             </h1>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="track" className="sr-only">
-                  Låt
-                </label>
-                <input
-                  id="track"
-                  type="text"
-                  value={track}
-                  onChange={(e) => setTrack(e.target.value)}
-                  placeholder="Ange låt"
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  required
-                  disabled={isLoading}
-                  autoComplete="off"
-                />
-              </div>
+            <form onSubmit={handleSubmit} className="space-y-5 w-full max-w-md animate-fade-in-up delay-200">
+              <div className="glass dark:glass-dark rounded-xl p-6 shadow-xl">
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="track" className="sr-only">
+                      Låt
+                    </label>
+                    <input
+                      id="track"
+                      type="text"
+                      value={track}
+                      onChange={(e) => setTrack(e.target.value)}
+                      placeholder="Ange låt"
+                      className="w-full px-5 py-4 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 text-white placeholder-white/60 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all outline-none"
+                      required
+                      disabled={isLoading}
+                      autoComplete="off"
+                    />
+                  </div>
 
-              <div>
-                <label htmlFor="artist" className="sr-only">
-                  Artist
-                </label>
-                <input
-                  id="artist"
-                  type="text"
-                  value={artist}
-                  onChange={(e) => setArtist(e.target.value)}
-                  placeholder="Ange artist"
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  disabled={isLoading}
-                  autoComplete="off"
-                />
-              </div>
-
-              {error && (
-                <div className="text-red-600 dark:text-red-400 text-sm text-center">
-                  {error}
+                  <div>
+                    <label htmlFor="artist" className="sr-only">
+                      Artist
+                    </label>
+                    <input
+                      id="artist"
+                      type="text"
+                      value={artist}
+                      onChange={(e) => setArtist(e.target.value)}
+                      placeholder="Ange artist"
+                      className="w-full px-5 py-4 rounded-xl bg-white/20 dark:bg-black/20 backdrop-blur-sm border border-white/30 dark:border-white/10 text-white placeholder-white/60 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all outline-none"
+                      disabled={isLoading}
+                      autoComplete="off"
+                    />
+                  </div>
                 </div>
-              )}
 
-              {success && (
-                <div className="text-green-600 dark:text-green-400 text-sm text-center font-medium bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-200 dark:border-green-800">
-                  {success}
-                </div>
-              )}
+                {error && (
+                  <div className="mt-4 text-red-300 text-sm text-center bg-red-500/20 backdrop-blur-sm p-3 rounded-lg border border-red-400/30 animate-fade-in">
+                    {error}
+                  </div>
+                )}
 
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors"
-              >
-                {isLoading ? "Söker..." : "Sök 🔎"}
-              </button>
+                {success && (
+                  <div className="mt-4 text-green-300 text-sm text-center font-medium bg-green-500/20 backdrop-blur-sm p-3 rounded-lg border border-green-400/30 animate-fade-in">
+                    {success}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full mt-5 py-4 px-6 btn-gradient disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-xl ripple shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all text-lg"
+                >
+                  <span>{isLoading ? "Söker..." : "Sök 🔎"}</span>
+                </button>
+              </div>
             </form>
 
             {/* Search Results */}
             {searchResults && searchResults.tracks?.items?.length > 0 && (
-              <div className="w-full max-w-2xl mt-8">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              <div className="w-full max-w-2xl mt-8 animate-fade-in-up">
+                <h2 className="text-2xl font-bold gradient-text mb-6">
                   Sökresultat:
                 </h2>
-                <div className="space-y-3 mb-10">
-                  {searchResults.tracks.items.map((item: any) => (
+                <div className="space-y-4 mb-10">
+                  {searchResults.tracks.items.map((item: any, index: number) => (
                     <div
                       key={item.id}
-                      className="flex items-center gap-4 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                      className={`glass dark:glass-dark rounded-xl p-5 shadow-xl card-hover animate-fade-in-up`}
+                      style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                      {item.album?.images?.[2] && (
-                        <img
-                          src={item.album.images[2].url}
-                          alt={item.album.name}
-                          className="w-16 h-16 rounded"
-                        />
-                      )}
-                      <div className="flex-1">
-                        <h3 className="font-medium text-gray-900 dark:text-white">
-                          {item.name}
-                        </h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {item.artists.map((a: any) => a.name).join(", ")}
-                        </p>
+                      <div className="flex items-center gap-4">
+                        {item.album?.images?.[2] && (
+                          <img
+                            src={item.album.images[2].url}
+                            alt={item.album.name}
+                            className="w-16 h-16 rounded-lg shadow-md"
+                          />
+                        )}
+                        <div className="flex-1 text-left">
+                          <h3 className="font-semibold text-white text-lg">
+                            {item.name}
+                          </h3>
+                          <p className="text-sm text-white/70">
+                            {item.artists.map((a: any) => a.name).join(", ")}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => handleClick(item)}
+                          className="btn-gradient text-white font-semibold py-2 px-5 rounded-lg ripple shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+                        >
+                          <span>Lägg till</span>
+                        </button>
                       </div>
-                      <button
-                        onClick={() => handleClick(item)}
-                        className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors cursor-pointer"
-                      >
-                        Lägg till
-                      </button>
                     </div>
                   ))}
                 </div>

@@ -68,70 +68,82 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white dark:bg-black">
-      <main className="flex flex-col items-center justify-center min-h-screen w-full max-w-3xl px-16">
-        {/* Header with logout */}
-        <div className="absolute top-4 right-4 flex items-center gap-4">
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-        </div>
+    <div className="flex min-h-screen items-center justify-center gradient-bg dark:gradient-bg-dark relative overflow-hidden">
+      {/* Animated background orbs */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-300"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-500"></div>
 
-        <div className="flex flex-col items-center gap-4 text-center mt-10">
+      {/* Fixed UserButton in top right */}
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-4 animate-fade-in delay-100">
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </div>
+
+      <main className="flex flex-col items-center justify-center min-h-screen w-full max-w-3xl px-16 relative z-10">
+
+        <div className="flex flex-col items-center gap-6 text-center mt-10">
           {/* GSOTW Title */}
-          <Image
-            src="/GSOTW.svg"
-            alt="GSOTW Logo"
-            width={300}
-            height={300}
-            className="mb-4 select-none"
-            priority
-          />
+          <div className="animate-scale-in">
+            <Image
+              src="/GSOTW.svg"
+              alt="GSOTW Logo"
+              width={300}
+              height={300}
+              className="mb-6 select-none drop-shadow-2xl"
+              priority
+            />
+          </div>
 
-          {/* Centered Image */}
-          <div className="mb-2">
-            <a href={redirectUrl} target="_blank" rel="noopener noreferrer">
-              <Image
-                src={imageUrl}
-                alt="GSOTW Album Cover"
-                width={300}
-                height={300}
-                className="rounded-lg shadow-lg cursor-pointer hover:scale-105 transition-transform"
-                priority
-              />
-            </a>
-            <p className="mt-5 text-lg font-semibold text-gray-900 dark:text-white">
-              {songTitle}
-            </p>
-            <p className="text-gray-600 dark:text-gray-400 mb-0">
-              {artistName}
-            </p>
-            <p className="text-gray-600 dark:text-gray-400 mb-0">
-              Tillagt av {songUser}
-            </p>
+          {/* Centered Image with glass card */}
+          <div className="mb-4 animate-fade-in-up delay-200">
+            <div className="glass dark:glass-dark rounded-2xl p-6 shadow-2xl">
+              <a href={redirectUrl} target="_blank" rel="noopener noreferrer">
+                <Image
+                  src={imageUrl}
+                  alt="GSOTW Album Cover"
+                  width={300}
+                  height={300}
+                  className="rounded-xl cursor-pointer glow-hover"
+                  priority
+                />
+              </a>
+              <div className="mt-6 space-y-2">
+                <p className="text-xl font-bold text-white bg-black/30 dark:bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg inline-block">
+                  {songTitle}
+                </p>
+                <p className="text-white/90 dark:text-white/80 text-lg">
+                  {artistName}
+                </p>
+                <p className="text-white/70 dark:text-white/60 text-sm">
+                  Tillagt av {songUser}
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Two URL Links */}
-          <div className="flex flex-row gap-4 items-center mb-0 mt-0">
+          <div className="flex flex-row gap-4 items-center mb-0 mt-2 animate-fade-in-up delay-300">
             <Link
               href="/add"
-              className="text-black dark:text-black hover:text-white text-lg transition-colors bg-zinc-300 hover:bg-green-700 font-medium py-2 px-4 rounded-lg"
+              className="btn-gradient text-white text-lg font-semibold py-3 px-6 rounded-xl ripple shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all"
             >
-              Lägg till låt
+              <span>Lägg till låt</span>
             </Link>
             <Link
               href="/arkiv"
-              className="text-black dark:text-black hover:text-white text-lg transition-colors bg-zinc-300 hover:bg-green-700 font-medium py-2 px-4 rounded-lg"
+              className="btn-gradient text-white text-lg font-semibold py-3 px-6 rounded-xl ripple shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all"
             >
-              Arkiv
+              <span>Arkiv</span>
             </Link>
           </div>
-          <div className="flex flex-row gap-4 items-center mt-0 mb-10">
+          <div className="flex flex-row gap-4 items-center mt-0 mb-10 animate-fade-in-up delay-400">
             <Link
               href="/next"
-              className="text-black dark:text-black hover:text-white text-lg transition-colors bg-zinc-300 hover:bg-green-700 font-medium py-2 px-4 rounded-lg w-full"
+              className="btn-gradient text-white text-lg font-semibold py-3 px-8 rounded-xl ripple shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all w-full"
             >
-              Nästa veckas urval
+              <span>Nästa veckas urval</span>
             </Link>
           </div>
         </div>
