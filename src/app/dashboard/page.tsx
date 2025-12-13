@@ -77,7 +77,7 @@ export default function Dashboard() {
           </SignedIn>
         </div>
 
-        <div className="flex flex-col items-center gap-4 text-center">
+        <div className="flex flex-col items-center gap-4 text-center mt-10">
           {/* GSOTW Title */}
           <Image
             src="/GSOTW.svg"
@@ -126,7 +126,7 @@ export default function Dashboard() {
               Arkiv
             </Link>
           </div>
-          <div className="flex flex-row gap-4 items-center mt-0">
+          <div className="flex flex-row gap-4 items-center mt-0 mb-10">
             <Link
               href="/next"
               className="text-black dark:text-black hover:text-white text-lg transition-colors bg-zinc-300 hover:bg-green-700 font-medium py-2 px-4 rounded-lg w-full"
